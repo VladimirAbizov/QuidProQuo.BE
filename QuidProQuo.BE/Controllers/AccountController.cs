@@ -12,28 +12,35 @@ using System.Xml.Serialization;
 namespace QuidProQuo.BE.Controllers
 {
     /// <summary>
-    /// 
+    /// Содержит методы для работы с категориями <seealso cref="Models.CategoryItem"/>
     /// </summary>
     public class AccountController : ApiController
     {
         private readonly QpqContext _dbContext = new QpqContext();
 
+        
+        /// <summary>
+        /// Возвращает список аккаунтов <see cref="Account"/>
+        /// </summary>
         // GET api/account
         public IEnumerable<Account> Get()
         {
-            return _dbContext.Accounts;
+            return _dbContext.Accounts.ToList();
         }
 
         /// <summary>
         /// Возвращает аккаунт <see cref="Account"/> пользователя по идентификатору <see cref="Account.ID"/>
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        // GET api/account/1 
         public Account Get(int id)
         {
             return _dbContext.Accounts.Find(id);
         }
 
+        /// <summary>
+        /// Добавляет аккаунт <see cref="Account"/> пользователя в базу данных
+        /// </summary>
         // POST api/account
         public void Post([FromBody]Account account)
         {
@@ -41,6 +48,11 @@ namespace QuidProQuo.BE.Controllers
             _dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Обновляет аккаунт <see cref="Account"/> пользователя в базе данных по идентификатору <see cref="Account.ID"/>
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="account"></param>
         // PUT api/account/5
         public void Put(int id, [FromBody]Account account)
         {
@@ -52,6 +64,10 @@ namespace QuidProQuo.BE.Controllers
             }
         }
 
+        /// <summary>
+        /// Удаляет аккаунт <see cref="Account"/> пользователя из базы данных по идентификатору <see cref="Account.ID"/>
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE api/account/5
         public void Delete(int id)
         {

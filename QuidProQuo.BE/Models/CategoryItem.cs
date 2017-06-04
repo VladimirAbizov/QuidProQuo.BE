@@ -7,15 +7,28 @@ using System.Xml.Serialization;
 namespace QuidProQuo.BE.Models
 {
     /// <summary>
-    /// 
+    /// Содержит информацию о категориях вещей или услуг
     /// </summary>
     public class CategoryItem
     {  
+        /// <summary>
+        /// Идентификатор категории
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Заголовок категории
+        /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// Список подкатегорий, относящихся к данной категории
+        /// </summary>
         public List<CategoryItem> Subcategories { get; set; }
 
+        /// <summary>
+        /// Объект <seealso cref="Models.CategoryType"/>, помечающий категорию как категорию вещей или услуг
+        /// </summary>
         public CategoryType CategoryType { get; set; }
     }
 }

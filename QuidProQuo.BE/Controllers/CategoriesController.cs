@@ -11,46 +11,66 @@ namespace QuidProQuo.BE.Controllers
 {
     public class CategoriesController : ApiController
     {
-        QpqContext db = new QpqContext();
+        private readonly QpqContext _dbContext = new QpqContext();
 
+        /// <summary>
+        /// Возвращает список всех категорий <see cref="CategoryItem"/>
+        /// </summary>
         // GET api/categories
         public IEnumerable<CategoryItem> Get()
         {
-            return db.CategoryItems.ToList();
+            return _dbContext.CategoryItems.ToList();
         }
 
+        /// <summary>
+        /// Возвращает категорию <see cref="CategoryItem"/> по идентификатору <see cref="CategoryItem.ID"/>
+        /// </summary>
+        /// <param name="id"></param>
         // GET api/categories/5
         public CategoryItem Get(int id)
         {
-            return db.CategoryItems.Find(id);
+            return _dbContext.CategoryItems.Find(id);
         }
 
+        /// <summary>
+        /// Добавляет категорию <see cref="CategoryItem"/> в базу данных
+        /// </summary>
+        /// <param name="category"></param>
         // POST api/categories
         public void Post([FromBody]CategoryItem category)
         {
-            db.CategoryItems.Add(category);
-            db.SaveChanges();
+            _dbContext.CategoryItems.Add(category);
+            _dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Обновляет категорию <see cref="CategoryItem"/> в базе данных по идентификатору <see cref="CategoryItem.ID"/>
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="category"></param>
         // PUT api/categories/5
         public void Put(int id, [FromBody]CategoryItem category)
         {
             if (id == category.ID)
             {
-                db.Entry(category).State = EntityState.Modified;
+                _dbContext.Entry(category).State = EntityState.Modified;
 
-                db.SaveChanges();
+                _dbContext.SaveChanges();
             }
         }
 
+        /// <summary>
+        /// Удаляет категорию <see cref="CategoryItem"/> из базы данных по идентификатору <see cref="CategoryItem.ID"/>
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE api/categories/5
         public void Delete(int id)
         {
-            CategoryItem category = db.CategoryItems.Find(id);
+            CategoryItem category = _dbContext.CategoryItems.Find(id);
             if (category != null)
             {
-                db.CategoryItems.Remove(category);
-                db.SaveChanges();
+                _dbContext.CategoryItems.Remove(category);
+                _dbContext.SaveChanges();
             }
         }
 
@@ -58,7 +78,7 @@ namespace QuidProQuo.BE.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _dbContext.Dispose();
             }
             base.Dispose(disposing);
         }

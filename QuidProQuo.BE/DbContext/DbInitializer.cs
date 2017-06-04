@@ -15,7 +15,7 @@ namespace QuidProQuo.BE.Models
                 ID = 1,
                 Login = "admin",
                 Password = "123",                                                          
-                Profile = new Profile {Address = "Samara", Email = "oao@cat.ru"}
+                Profile = new Profile { Address = "Samara", Email = "oao@cat.ru" }
             });
 
             db.Things.Add(new Thing { Title = "first" });
