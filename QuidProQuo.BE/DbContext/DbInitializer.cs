@@ -8,7 +8,8 @@ namespace QuidProQuo.BE.Models
 {
     public class DbInitializer : DropCreateDatabaseAlways<QpqContext>
     {
-        protected override void Seed(QpqContext db)
+        // аккаунты
+        private void SeedAccounts(QpqContext db)
         {
             db.Accounts.Add(new Account
             {
@@ -17,16 +18,23 @@ namespace QuidProQuo.BE.Models
                 Password = "123",                                                          
                 Profile = new Profile { Address = "Samara", Email = "oao@cat.ru" }
             });
+        }
 
+        // вещи
+        private void SeedThings(QpqContext db)
+        {
             db.Things.Add(new Thing { Title = "first" });
-
-            // В Е Щ И 
-
+        }
+        
+        // категории вещей
+        private void SeedCategoriesOfThings(QpqContext db)
+        {
             db.CategoryItems.Add(new CategoryItem
             {
-                ID = 1,       
+                ID = 1,
                 Title = "Продукты",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Молочные продукты", CategoryType = CategoryType.Thing },
@@ -38,58 +46,42 @@ namespace QuidProQuo.BE.Models
                     new CategoryItem {Title = "Бакалея", CategoryType = CategoryType.Thing },
                     new CategoryItem {Title = "Продукты пчеловодства", CategoryType = CategoryType.Thing },
                     new CategoryItem {Title = "Консервированная продукция", CategoryType = CategoryType.Thing },
-                    new CategoryItem {Title = "Другое", CategoryType = CategoryType.Thing }
                 }
             });
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Одежда, обувь, аксессуары",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem
                     {
                         Title = "Женский гардероб ",
-                        CategoryType = CategoryType.Thing,
-                        Subcategories = new List<CategoryItem>
-                        {
-                            new CategoryItem {Title = "Верхняя одежда", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Костюмы", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Брюки, джинсы, комбинезоны", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Свитера, кардиганы", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Рубашки, блузки", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Юбки", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Платья, сарафаны", CategoryType = CategoryType.Thing }
-                        }
+                        CategoryType = CategoryType.Thing
                     },
                     new CategoryItem
                     {
                         Title = "Мужской гардероб",
-                        CategoryType = CategoryType.Thing,
-                        Subcategories = new List<CategoryItem>
-                        {
-                            new CategoryItem {Title = "Верхняя одежда", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Костюмы", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Брюки, джинсы, комбинезоны", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Свитера, кардиганы", CategoryType = CategoryType.Thing },
-                            new CategoryItem {Title = "Рубашки", CategoryType = CategoryType.Thing }
-                        }
+                        CategoryType = CategoryType.Thing 
                     },
                     new CategoryItem {Title = "Детский гардероб", CategoryType = CategoryType.Thing },
-                    new CategoryItem {Title = "Спецодежда", CategoryType = CategoryType.Thing },
+                    new CategoryItem {Title = "Спецодежда", CategoryType = CategoryType.Thing }
                 }
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Охота, рыбалка, походы",
-                CategoryType = CategoryType.Thing
+                CategoryType = CategoryType.Thing,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Билеты",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Авиабилеты", CategoryType = CategoryType.Thing },
@@ -103,6 +95,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Транспорт",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Легковые автомобили", CategoryType = CategoryType.Thing },
@@ -119,6 +112,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Недвижимость",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Квартиры", CategoryType = CategoryType.Thing },
@@ -146,6 +140,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Отдых",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Настольные игры", CategoryType = CategoryType.Thing },
@@ -159,6 +154,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Для детей",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Игрушки", CategoryType = CategoryType.Thing },
@@ -170,6 +166,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Электроника и электротовары",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Бытовая техника", CategoryType = CategoryType.Thing },
@@ -185,11 +182,12 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Для дома",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Посуда", CategoryType = CategoryType.Thing },
                     new CategoryItem {Title = "Мебель и интерьер", CategoryType = CategoryType.Thing },
-                    new CategoryItem {Title = "Строительные материалы", CategoryType = CategoryType.Thing }               
+                    new CategoryItem {Title = "Строительные материалы", CategoryType = CategoryType.Thing }
                 }
             });
 
@@ -197,6 +195,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Живой мир",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Животные", CategoryType = CategoryType.Thing },
@@ -210,6 +209,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Красота и здоровье",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Косметика", CategoryType = CategoryType.Thing },
@@ -222,6 +222,7 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Товары для офиса",
                 CategoryType = CategoryType.Thing,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Канцтовары", CategoryType = CategoryType.Thing },
@@ -233,15 +234,19 @@ namespace QuidProQuo.BE.Models
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Другое",
-                CategoryType = CategoryType.Thing
+                CategoryType = CategoryType.Thing,
+                IsCategory = true
             });
-
-            // У С Л У Г И
-
+        }
+        
+        // категории услуг
+        private void SeedCategoriesOfServices(QpqContext db)
+        {
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Ремонт",
                 CategoryType = CategoryType.Service,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Сантехника", CategoryType = CategoryType.Service },
@@ -255,30 +260,34 @@ namespace QuidProQuo.BE.Models
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Установка оборудования",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Обучение",
                 CategoryType = CategoryType.Service,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Творчество", CategoryType = CategoryType.Service },
-                    new CategoryItem {Title = "Репетиторские услуги", CategoryType = CategoryType.Service }            
+                    new CategoryItem {Title = "Репетиторские услуги", CategoryType = CategoryType.Service }
                 }
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Фотосъёмка/видеосъемка",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Транспортные услуги",
                 CategoryType = CategoryType.Service,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Грузоперевозки", CategoryType = CategoryType.Service },
@@ -291,13 +300,15 @@ namespace QuidProQuo.BE.Models
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Уборка и помощь по хозяйству",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Консультация",
                 CategoryType = CategoryType.Service,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Помощь в оформлении документов", CategoryType = CategoryType.Service },
@@ -312,63 +323,79 @@ namespace QuidProQuo.BE.Models
             {
                 Title = "Организация мероприятий",
                 CategoryType = CategoryType.Service,
+                IsCategory = true,
                 Subcategories = new List<CategoryItem>
                 {
                     new CategoryItem {Title = "Ведущий", CategoryType = CategoryType.Service },
                     new CategoryItem {Title = "Оформление праздника", CategoryType = CategoryType.Service },
                     new CategoryItem {Title = "Детские праздники", CategoryType = CategoryType.Service },
                     new CategoryItem {Title = "Бухгалтерское сопровождение", CategoryType = CategoryType.Service },
-                    new CategoryItem {Title = "Другое", CategoryType = CategoryType.Service }
                 }
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Удалённая работа",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Искусство",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Сад, благоустройство",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Уход за животными",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Реклама",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Няньки, сиделки",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "IT-услуги",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
 
             db.CategoryItems.Add(new CategoryItem
             {
                 Title = "Другое",
-                CategoryType = CategoryType.Service
+                CategoryType = CategoryType.Service,
+                IsCategory = true
             });
+        }
+
+        protected override void Seed(QpqContext db)
+        { 
+            SeedAccounts(db);
+            SeedThings(db);
+            SeedCategoriesOfThings(db);
+            SeedCategoriesOfServices(db);
 
             base.Seed(db);
         }
