@@ -20,12 +20,31 @@ namespace QuidProQuo.BE.Models
             });
         }
 
-        // вещи
-        private void SeedThings(QpqContext db)
+        // объявление (услуга)
+        private void SeedOrderService(QpqContext db)
         {
-            db.Things.Add(new Thing { Title = "first" });
+            db.ServiceOrders.Add(new ServiceOrder
+            {
+                DateTime = "05.08.2000",
+                objectBase = new Service
+                {
+                    Title = "service"
+                }
+            });
         }
-        
+
+        // объявление (вещь)
+        private void SeedOrderThing(QpqContext db)
+        {
+            db.ServiceOrders.Add(new ServiceOrder
+            {
+                DateTime = "01.01.1111",
+                objectBase = new Thing
+                {
+                    Title = "thing"
+                }
+            });
+        }
         // категории вещей
         private void SeedCategoriesOfThings(QpqContext db)
         {
@@ -393,7 +412,8 @@ namespace QuidProQuo.BE.Models
         protected override void Seed(QpqContext db)
         { 
             SeedAccounts(db);
-            SeedThings(db);
+            SeedOrderService(db);
+            SeedOrderThing(db);
             SeedCategoriesOfThings(db);
             SeedCategoriesOfServices(db);
 

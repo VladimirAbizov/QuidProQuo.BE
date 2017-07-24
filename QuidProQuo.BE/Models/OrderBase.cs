@@ -20,5 +20,10 @@ namespace QuidProQuo.BE.Models
         /// Дата регистрации объявления
         /// </summary>
         public string DateTime { get; set; }
+
+        /// <summary>
+        /// Прикрепленный к объявлению объект
+        /// </summary>
+        public virtual ObjectBase objectBase { get; set; }
     }
 }

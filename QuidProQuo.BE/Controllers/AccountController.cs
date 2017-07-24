@@ -16,9 +16,8 @@ namespace QuidProQuo.BE.Controllers
     /// </summary>
     public class AccountController : ApiController
     {
-        private readonly QpqContext _dbContext = new QpqContext();
+        public QpqContext _dbContext = new QpqContext();
 
-        
         /// <summary>
         /// Возвращает список аккаунтов <see cref="Account"/>
         /// </summary>

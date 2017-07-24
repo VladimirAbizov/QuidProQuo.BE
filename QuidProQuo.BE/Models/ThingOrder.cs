@@ -10,5 +10,17 @@ namespace QuidProQuo.BE.Models
     /// </summary>
     public class ThingOrder : OrderBase
     {
+        /// <summary>
+        /// Выставленная вещь
+        /// </summary>
+        public override ObjectBase objectBase
+        {
+            get { return base.objectBase; }
+            set
+            {
+                if (value.GetType() == typeof(Thing))
+                    base.objectBase = value;
+            }
+        }
     }
 }
