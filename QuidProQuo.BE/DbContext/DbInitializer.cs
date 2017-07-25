@@ -28,7 +28,7 @@ namespace QuidProQuo.BE.Models
                 DateTime = "05.08.2000",
                 objectBase = new Service
                 {
-                    Title = "service"
+                    Title = "any service"
                 }
             });
         }
@@ -36,12 +36,12 @@ namespace QuidProQuo.BE.Models
         // объявление (вещь)
         private void SeedOrderThing(QpqContext db)
         {
-            db.ServiceOrders.Add(new ServiceOrder
+            db.ThingOrders.Add(new ThingOrder
             {
                 DateTime = "01.01.1111",
                 objectBase = new Thing
                 {
-                    Title = "thing"
+                    Title = "any thing"
                 }
             });
         }
