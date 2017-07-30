@@ -9,7 +9,7 @@ using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
-    public class OrderController : ApiController
+    public class SearchController : ApiController
     {
         public QpqContext _dbContext = new QpqContext();
 
