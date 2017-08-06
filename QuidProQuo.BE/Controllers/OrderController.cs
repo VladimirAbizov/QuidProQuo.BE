@@ -10,10 +10,6 @@ using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
-    public class ActionData
-    {
-        public object[] orderFields { get; set; }    
-    }
     public class OrderController : ApiController
     {
         public QpqContext _dbContext = new QpqContext();
@@ -23,12 +19,11 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <returns></returns>
         // GET api/order
-        public IEnumerable<OrderBase> Get()
+        public string Get()
         {
             var orders = _dbContext.OrderBase.ToList();
 
-            //return JsonConvert.SerializeObject(orders);
-            return orders;
+            return JsonConvert.SerializeObject(orders);
         }
 
         /// <summary>
@@ -47,50 +42,12 @@ namespace QuidProQuo.BE.Controllers
         /// <summary>
         /// Добавляет объявление в базу данных
         /// </summary>
-        /// <param name="actionData"></param>
+        /// <param name="order"></param>
         // POST api/order
-        [HttpPost]
-        public HttpResponseMessage Post(ActionData actionData)     //ошибка 500 из за объекта CategoryItem
-        {
-            if (actionData == null)
-            {
-               return new HttpResponseMessage(HttpStatusCode.Conflict);
-            }
-            var category = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
-            if(category == null)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
-            }
-            if (category.CategoryType == CategoryType.Thing)
-                _dbContext.ThingOrders.Add(new ThingOrder
-                {
-                    DateTime = actionData.orderFields[0].ToString(),
-                    objectBase = new Thing
-                    {
-                        Title = actionData.orderFields[1].ToString(),
-                        Description = actionData.orderFields[2].ToString(),
-                        CategoryItem = category,
-                        Address = actionData.orderFields[4].ToString()
-                    }
-                });
-            if(category.CategoryType == CategoryType.Service)
-                _dbContext.ServiceOrders.Add(new ServiceOrder
-                {
-                    DateTime = actionData.orderFields[0].ToString(),
-                    objectBase = new Service
-                    {
-                        Title = actionData.orderFields[1].ToString(),
-                        Description = actionData.orderFields[2].ToString(),
-                        CategoryItem = category,
-                        Address = actionData.orderFields[4].ToString()
-                    }
-                });
-            //_dbContext.ThingOrders.Add(actionData.order);
-
-            //_dbContext.OrderBase.Add(actionData.order);
+        public void Post([FromBody]OrderBase order)
+        { 
+            _dbContext.OrderBase.Add(order);
             _dbContext.SaveChanges();
-
-            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         /// <summary>
