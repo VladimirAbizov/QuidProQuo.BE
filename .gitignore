@@ -2,3 +2,9 @@ packages/
 QuidProQuo.BE/bin/
 QuidProQuo.BE/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
 QuidProQuo.BE/obj/
+*.suo
+.vs/config/applicationhost.config
+QuidProQuo.BE/QuidProQuo.BE.csproj
+QuidProQuo.BE/QuidProQuo.BE.csproj.user
+QuidProQuo.BE/Web.config
+QuidProQuo.BE/Properties/PublishProfiles/QuidProQuo.pubxml.user
