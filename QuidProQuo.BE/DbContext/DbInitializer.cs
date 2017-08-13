@@ -19,32 +19,7 @@ namespace QuidProQuo.BE.Models
                 Profile = new Profile { Address = "Samara", Email = "oao@cat.ru" }
             });
         }
-
-        // объявление (услуга)
-        private void SeedOrderService(QpqContext db)
-        {
-            db.ServiceOrders.Add(new ServiceOrder
-            {
-                DateTime = "05.08.2000",
-                objectBase = new Service
-                {
-                    Title = "any service"
-                }
-            });
-        }
-
-        // объявление (вещь)
-        private void SeedOrderThing(QpqContext db)
-        {
-            db.ThingOrders.Add(new ThingOrder
-            {
-                DateTime = "01.01.1111",
-                objectBase = new Thing
-                {
-                    Title = "any thing"
-                }
-            });
-        }
+        
         // категории вещей
         private void SeedCategoriesOfThings(QpqContext db)
         {
@@ -409,6 +384,33 @@ namespace QuidProQuo.BE.Models
             });
         }
 
+        // объявление (услуга)
+        private void SeedOrderService(QpqContext db)
+        {
+            db.ServiceOrders.Add(new ServiceOrder
+            {
+                DateTime = "05.08.2000",
+                objectBase = new Service
+                {
+                    Title = "any service",
+                    Description = "anything service"
+                }
+            });
+        }
+
+        // объявление (вещь)
+        private void SeedOrderThing(QpqContext db)
+        {
+            db.ThingOrders.Add(new ThingOrder
+            {
+                DateTime = "01.01.1111",
+                objectBase = new Thing
+                {
+                    Title = "any thing",
+                    Description = "anything thing"
+                }
+            });
+        }
         protected override void Seed(QpqContext db)
         { 
             SeedAccounts(db);

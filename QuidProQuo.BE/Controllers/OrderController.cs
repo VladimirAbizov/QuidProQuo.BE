@@ -44,10 +44,17 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <param name="order"></param>
         // POST api/order
-        public void Post([FromBody]OrderBase order)
-        { 
-            _dbContext.OrderBase.Add(order);
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]string order)     //без фромбоди - приложение не находит метод (405)
+        {
+            if (order == null)
+            {
+               return new HttpResponseMessage(HttpStatusCode.Conflict); //что не присылал бы - всегда выдаёт конфликт
+            }
+            var newOrder = (OrderBase) JsonConvert.DeserializeObject(order, typeof (OrderBase)); 
+            _dbContext.OrderBase.Add(newOrder);
             _dbContext.SaveChanges();
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         /// <summary>

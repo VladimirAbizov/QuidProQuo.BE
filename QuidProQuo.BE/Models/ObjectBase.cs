@@ -21,6 +21,11 @@ namespace QuidProQuo.BE.Models
         public string Title { get; set; }
 
         /// <summary>
+        /// Описание
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// Категория
         /// </summary>
         public CategoryItem CategoryItem { get; set; }
