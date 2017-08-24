@@ -25,11 +25,22 @@ namespace QuidProQuo.BE.Controllers
         /// <summary>
         /// Возвращает категорию <see cref="CategoryItem"/> по идентификатору <see cref="CategoryItem.ID"/>
         /// </summary>
-        /// <param name="id"></param>
-        // GET api/category/5
-        public CategoryItem Get(int id)
+        /// <param name="categoryType"></param>
+        // GET api/category/service
+        public IEnumerable<CategoryItem> Get(string categoryType)
         {
-            return _dbContext.CategoryItems.Find(id);
+            if (categoryType == "service")
+            {
+                var res = _dbContext.CategoryItems.ToList().Where(x => x.CategoryType == CategoryType.Service && x.IsCategory);
+                return res;
+            }
+                
+                else if (categoryType == "thing")
+            {
+                var res = _dbContext.CategoryItems.ToList().Where(x => x.CategoryType == CategoryType.Thing && x.IsCategory);
+                return res;
+            }
+                    else return null;
         }
 
         /// <summary>

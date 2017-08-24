@@ -7,10 +7,10 @@ namespace QuidProQuo.BE.Models
 {
     /// <summary>
     /// Абстрактный класс, содержащий общие поля для классов <seealso cref="Service"/> и <seealso cref="Thing"/>
-    /// </summary>
+    /// </summary>                       
     public abstract class ObjectBase
     {
-        /// <summary>
+        /// <summary>                                                    
         /// Идентификатор 
         /// </summary>
         public int ID { get; set; }
@@ -22,7 +22,7 @@ namespace QuidProQuo.BE.Models
 
         /// <summary>
         /// Описание
-        /// </summary>
+        /// </summary>                                                                      
         public string Description { get; set; }
 
         /// <summary>

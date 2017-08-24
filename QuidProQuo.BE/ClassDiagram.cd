@@ -70,7 +70,7 @@
   <Class Name="QuidProQuo.BE.Models.ObjectBase">
     <Position X="13.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgEAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAggEAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ObjectBase.cs</FileName>
     </TypeIdentifier>
   </Class>

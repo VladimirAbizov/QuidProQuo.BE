@@ -10,6 +10,10 @@ using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
+    public class ActionData
+    {
+        public object[] orderFields { get; set; }    
+    }
     public class OrderController : ApiController
     {
         public QpqContext _dbContext = new QpqContext();
@@ -42,18 +46,47 @@ namespace QuidProQuo.BE.Controllers
         /// <summary>
         /// Добавляет объявление в базу данных
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="actionData"></param>
         // POST api/order
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]string order)     //без фромбоди - приложение не находит метод (405)
+        public HttpResponseMessage Post(ActionData actionData)     //ошибка 500 из за объекта CategoryItem
         {
-            if (order == null)
+            if (actionData == null)
             {
-               return new HttpResponseMessage(HttpStatusCode.Conflict); //что не присылал бы - всегда выдаёт конфликт
+               return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
-            var newOrder = (OrderBase) JsonConvert.DeserializeObject(order, typeof (OrderBase)); 
-            _dbContext.OrderBase.Add(newOrder);
+            var category = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
+            if(category == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+            if (category.CategoryType == CategoryType.Thing)
+                _dbContext.ThingOrders.Add(new ThingOrder
+                {
+                    DateTime = actionData.orderFields[0].ToString(),
+                    objectBase = new Thing
+                    {
+                        Title = actionData.orderFields[1].ToString(),
+                        Description = actionData.orderFields[2].ToString(),
+                        CategoryItem = category
+                    }
+                });
+            if(category.CategoryType == CategoryType.Service)
+                _dbContext.ServiceOrders.Add(new ServiceOrder
+                {
+                    DateTime = actionData.orderFields[0].ToString(),
+                    objectBase = new Service
+                    {
+                        Title = actionData.orderFields[1].ToString(),
+                        Description = actionData.orderFields[2].ToString(),
+                        CategoryItem = category
+                    }
+                });
+            //_dbContext.ThingOrders.Add(actionData.order);
+
+            //_dbContext.OrderBase.Add(actionData.order);
             _dbContext.SaveChanges();
+
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 

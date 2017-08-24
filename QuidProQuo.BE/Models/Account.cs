@@ -26,7 +26,7 @@ namespace QuidProQuo.BE.Models
         public string Password { get; set; }
 
         /// <summary>
-        /// Объект класса <seealso cref="Models.Profile"/>, к которому привязан аккаунт
+        /// Объект класса <seealso cref="Models.Profile"/>, который привязан к данному аккаунту
         /// </summary>
         public Profile Profile { get; set; }
     }
