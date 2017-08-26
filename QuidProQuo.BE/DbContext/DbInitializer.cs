@@ -9,7 +9,7 @@ namespace QuidProQuo.BE.Models
     public class DbInitializer : DropCreateDatabaseAlways<QpqContext>
     {
         // аккаунты
-        private void SeedAccounts(QpqContext db)
+        private static void SeedAccounts(QpqContext db)
         {
             db.Accounts.Add(new Account
             {
@@ -21,7 +21,7 @@ namespace QuidProQuo.BE.Models
         }
         
         // категории вещей
-        private void SeedCategoriesOfThings(QpqContext db)
+        private static void SeedCategoriesOfThings(QpqContext db)
         {
             db.CategoryItems.Add(new CategoryItem
             {
@@ -234,7 +234,7 @@ namespace QuidProQuo.BE.Models
         }
         
         // категории услуг
-        private void SeedCategoriesOfServices(QpqContext db)
+        private static void SeedCategoriesOfServices(QpqContext db)
         {
             db.CategoryItems.Add(new CategoryItem
             {
@@ -385,7 +385,7 @@ namespace QuidProQuo.BE.Models
         }
 
         // объявление (услуга)
-        private void SeedOrderService(QpqContext db)
+        private static void SeedOrderService(QpqContext db)
         {
             db.ServiceOrders.Add(new ServiceOrder
             {
@@ -399,7 +399,7 @@ namespace QuidProQuo.BE.Models
         }
 
         // объявление (вещь)
-        private void SeedOrderThing(QpqContext db)
+        private static void SeedOrderThing(QpqContext db)
         {
             db.ThingOrders.Add(new ThingOrder
             {

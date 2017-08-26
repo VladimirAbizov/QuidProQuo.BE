@@ -8,15 +8,17 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using QuidProQuo.BE.Models;
 using System.Xml.Serialization;
+using QuidProQuo.BE.Attributes;
 
 namespace QuidProQuo.BE.Controllers
 {
     /// <summary>
     /// Содержит методы для работы с категориями <seealso cref="Models.CategoryItem"/>
     /// </summary>
+    [QAuthAtribute]
     public class AccountController : ApiController
     {
-        public QpqContext _dbContext = new QpqContext();
+        private readonly QpqContext _dbContext = new QpqContext();
 
         /// <summary>
         /// Возвращает список аккаунтов <see cref="Account"/>

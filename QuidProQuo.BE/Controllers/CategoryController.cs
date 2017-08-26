@@ -5,13 +5,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
+using QuidProQuo.BE.Attributes;
 using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
+    [QAuthAtribute]
     public class CategoryController : ApiController
     {
-        public QpqContext _dbContext = new QpqContext();
+        private readonly QpqContext _dbContext = new QpqContext();
 
         /// <summary>
         /// Возвращает список всех категорий <see cref="CategoryItem"/>

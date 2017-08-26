@@ -6,13 +6,15 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
 using Newtonsoft.Json;
+using QuidProQuo.BE.Attributes;
 using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
+    [QAuthAtribute]
     public class OrderController : ApiController
     {
-        public QpqContext _dbContext = new QpqContext();
+        private readonly QpqContext _dbContext = new QpqContext();
 
         /// <summary>
         /// Возвращает список всех объявлений

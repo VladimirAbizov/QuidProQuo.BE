@@ -26,7 +26,17 @@ namespace QuidProQuo.BE.Models
         public string Password { get; set; }
 
         /// <summary>
-        /// Объект класса <seealso cref="Models.Profile"/>, который привязан к данному аккаунту
+        /// Ключ генерируемый при входе в приложение, обладающий временем жизни <see cref="LifeTime"/>.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Время жизни ключа.
+        /// </summary>
+        public TimeSpan? LifeTime { get; set; }
+
+        /// <summary>
+        /// Объект класса <seealso cref="Models.Profile"/>, к которому привязан аккаунт
         /// </summary>
         public Profile Profile { get; set; }
     }
