@@ -29,5 +29,10 @@ namespace QuidProQuo.BE.Models
         /// Категория
         /// </summary>
         public CategoryItem CategoryItem { get; set; }
+
+        /// <summary>
+        /// Адрес
+        /// </summary>
+        public string Address { get; set; }
     }
 }

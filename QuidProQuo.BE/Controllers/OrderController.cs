@@ -68,7 +68,8 @@ namespace QuidProQuo.BE.Controllers
                     {
                         Title = actionData.orderFields[1].ToString(),
                         Description = actionData.orderFields[2].ToString(),
-                        CategoryItem = category
+                        CategoryItem = category,
+                        Address = actionData.orderFields[4].ToString()
                     }
                 });
             if(category.CategoryType == CategoryType.Service)
@@ -79,7 +80,8 @@ namespace QuidProQuo.BE.Controllers
                     {
                         Title = actionData.orderFields[1].ToString(),
                         Description = actionData.orderFields[2].ToString(),
-                        CategoryItem = category
+                        CategoryItem = category,
+                        Address = actionData.orderFields[4].ToString()
                     }
                 });
             //_dbContext.ThingOrders.Add(actionData.order);
