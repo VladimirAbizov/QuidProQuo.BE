@@ -11,6 +11,11 @@ using QuidProQuo.BE.Models;
 
 namespace QuidProQuo.BE.Controllers
 {
+    public class ActionData
+    {
+        public object[] orderFields { get; set; }
+    }
+
     [QAuthAtribute]
     public class OrderController : ApiController
     {
@@ -21,11 +26,11 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <returns></returns>
         // GET api/order
-        public string Get()
+        public IEnumerable<OrderBase> Get()
         {
             var orders = _dbContext.OrderBase.ToList();
 
-            return JsonConvert.SerializeObject(orders);
+            return orders;
         }
 
         /// <summary>
@@ -44,12 +49,44 @@ namespace QuidProQuo.BE.Controllers
         /// <summary>
         /// Добавляет объявление в базу данных
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="actionData"></param>
         // POST api/order
-        public void Post([FromBody]OrderBase order)
-        { 
-            _dbContext.OrderBase.Add(order);
+        public HttpResponseMessage Post(ActionData actionData)
+        {
+            if (actionData == null)
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+
+            var category = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
+            if(category == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            if (category.CategoryType == CategoryType.Thing)
+                _dbContext.ThingOrders.Add(new ThingOrder
+                {
+                    DateTime = actionData.orderFields[0].ToString(),
+                    objectBase = new Thing
+                    {
+                        Title = actionData.orderFields[1].ToString(),
+                        Description = actionData.orderFields[2].ToString(),
+                        CategoryItem = category,
+                        Address = actionData.orderFields[4].ToString()
+                    }
+                });
+            if (category.CategoryType == CategoryType.Service)
+                _dbContext.ServiceOrders.Add(new ServiceOrder
+                {
+                    DateTime = actionData.orderFields[0].ToString(),
+                    objectBase = new Service
+                    {
+                        Title = actionData.orderFields[1].ToString(),
+                        Description = actionData.orderFields[2].ToString(),
+                        CategoryItem = category,
+                        Address = actionData.orderFields[4].ToString()
+                    }
+                });
+
             _dbContext.SaveChanges();
+
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         /// <summary>
