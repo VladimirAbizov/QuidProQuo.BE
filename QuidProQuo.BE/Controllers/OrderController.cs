@@ -23,11 +23,12 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <returns></returns>
         // GET api/order
-        public string Get()
+        public IEnumerable<OrderBase> Get()
         {
             var orders = _dbContext.OrderBase.ToList();
 
-            return JsonConvert.SerializeObject(orders);
+            //return JsonConvert.SerializeObject(orders);
+            return orders;
         }
 
         /// <summary>
