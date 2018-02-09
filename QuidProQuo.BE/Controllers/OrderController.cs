@@ -26,11 +26,12 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <returns></returns>
         // GET api/order
-        public IEnumerable<OrderBase> Get()
+        public string Get()
         {
-            var orders = _dbContext.OrderBase.ToList();
+            var orders = _dbContext.OrderBases.Include(o => o.ObjectBase).ToList();
 
-            return orders;
+            return JsonConvert.SerializeObject(orders);
+            //return orders;
         }
 
         /// <summary>
@@ -40,8 +41,8 @@ namespace QuidProQuo.BE.Controllers
         // GET api/order/anything
         public string Get(string item)
         {
-            var orders = (from order in _dbContext.OrderBase
-                          where order.objectBase.Title.Contains(item)
+            var orders = (from order in _dbContext.OrderBases
+                          where order.ObjectBase.Title.Contains(item)
                           select order).ToList();
             return JsonConvert.SerializeObject(orders);
         }
@@ -63,24 +64,24 @@ namespace QuidProQuo.BE.Controllers
                 _dbContext.ThingOrders.Add(new ThingOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
-                    objectBase = new Thing
+                    ObjectBase = new Thing
                     {
                         Title = actionData.orderFields[1].ToString(),
                         Description = actionData.orderFields[2].ToString(),
                         CategoryItem = category,
-                        Address = actionData.orderFields[4].ToString()
+                        Location = actionData.orderFields[4].ToString()
                     }
                 });
             if (category.CategoryType == CategoryType.Service)
                 _dbContext.ServiceOrders.Add(new ServiceOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
-                    objectBase = new Service
+                    ObjectBase = new Service
                     {
                         Title = actionData.orderFields[1].ToString(),
                         Description = actionData.orderFields[2].ToString(),
                         CategoryItem = category,
-                        Address = actionData.orderFields[4].ToString()
+                        Location = actionData.orderFields[4].ToString()
                     }
                 });
 
@@ -95,14 +96,16 @@ namespace QuidProQuo.BE.Controllers
         /// <param name="id"></param>
         /// <param name="order"></param>
         // PUT api/order/5
-        public void Put(int id, [FromBody]OrderBase order)
+        public HttpResponseMessage Put(int id, [FromBody]OrderBase order)
         {
-            if (id == order.ID)
+            if (id == order.Id)
             {
                 _dbContext.Entry(order).State = EntityState.Modified;
-
                 _dbContext.SaveChanges();
+
+                return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
 
         /// <summary>
@@ -110,12 +113,17 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <param name="id"></param>
         // DELETE api/order/5
+        //[Route("api/order/{id}")]
+        [HttpDelete]
         public void Delete(int id)
         {
-            OrderBase order = _dbContext.OrderBase.Find(id);
-            if (order != null)
+            OrderBase order = _dbContext.OrderBases.Find(id);
+            ObjectBase obj = _dbContext.ObjectBases.Find(id);
+
+            if (order != null && obj != null)
             {
-                _dbContext.OrderBase.Remove(order);
+                _dbContext.OrderBases.Remove(order);
+                _dbContext.ObjectBases.Remove(obj);
                 _dbContext.SaveChanges();
             }
         }

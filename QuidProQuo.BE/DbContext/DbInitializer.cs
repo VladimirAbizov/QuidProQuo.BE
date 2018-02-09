@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Microsoft.Ajax.Utilities;
 
 namespace QuidProQuo.BE.Models
 {
@@ -16,7 +17,33 @@ namespace QuidProQuo.BE.Models
                 ID = 1,
                 Login = "admin",
                 Password = "123",                                                          
-                Profile = new Profile { Address = "Samara", Email = "oao@cat.ru" }
+                Profile = new Profile
+                {
+                    Address = "Samara",
+                    Email = "oao@cat.ru",
+                    PhoneNumber = "89870010000",
+                    Orders = new List<OrderBase>
+                    {
+                        new ServiceOrder
+                        {
+                            DateTime = "05.08.2000",
+                            ObjectBase = new Service
+                            {
+                                Title = "any service",
+                                Description = "anything service"
+                            }
+                        },
+                        new ThingOrder
+                        {
+                            DateTime = "01.01.1111",
+                            ObjectBase = new Thing
+                            {
+                                Title = "any thing",
+                                Description = "anything thing"
+                            }
+                        }
+                    }
+                }
             });
         }
         
@@ -386,36 +413,18 @@ namespace QuidProQuo.BE.Models
 
         // объявление (услуга)
         private static void SeedOrderService(QpqContext db)
-        {
-            db.ServiceOrders.Add(new ServiceOrder
-            {
-                DateTime = "05.08.2000",
-                objectBase = new Service
-                {
-                    Title = "any service",
-                    Description = "anything service"
-                }
-            });
+        {     
         }
 
         // объявление (вещь)
         private static void SeedOrderThing(QpqContext db)
         {
-            db.ThingOrders.Add(new ThingOrder
-            {
-                DateTime = "01.01.1111",
-                objectBase = new Thing
-                {
-                    Title = "any thing",
-                    Description = "anything thing"
-                }
-            });
         }
         protected override void Seed(QpqContext db)
         { 
             SeedAccounts(db);
-            SeedOrderService(db);
-            SeedOrderThing(db);
+            //SeedOrderService(db);
+            //SeedOrderThing(db);
             SeedCategoriesOfThings(db);
             SeedCategoriesOfServices(db);
 

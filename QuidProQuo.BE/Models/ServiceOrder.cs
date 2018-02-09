@@ -10,17 +10,6 @@ namespace QuidProQuo.BE.Models
     /// </summary>
     public class ServiceOrder : OrderBase
     {
-        /// <summary>
-        /// Выставленная услуга
-        /// </summary>
-        public override ObjectBase objectBase
-        {
-            get { return base.objectBase; }
-            set
-            {
-                if (value.GetType() == typeof (Service))
-                    base.objectBase = value;
-            }
-        }
+
     }   
 }

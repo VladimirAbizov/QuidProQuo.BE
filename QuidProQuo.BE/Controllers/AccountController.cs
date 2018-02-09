@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -24,9 +25,10 @@ namespace QuidProQuo.BE.Controllers
         /// Возвращает список аккаунтов <see cref="Account"/>
         /// </summary>
         // GET api/account
-        public IEnumerable<Account> Get()
+        public string Get()
         {
-            return _dbContext.Accounts.ToList();
+            var accounts = _dbContext.Accounts.ToList();
+            return JsonConvert.SerializeObject(accounts); 
         }
 
         /// <summary>
@@ -34,9 +36,10 @@ namespace QuidProQuo.BE.Controllers
         /// </summary>
         /// <param name="id"></param>
         // GET api/account/1 
-        public Account Get(int id)
+        public string Get(int id)
         {
-            return _dbContext.Accounts.Find(id);
+            var account = _dbContext.Accounts.Find(id);
+            return JsonConvert.SerializeObject(account);
         }
 
         /// <summary>

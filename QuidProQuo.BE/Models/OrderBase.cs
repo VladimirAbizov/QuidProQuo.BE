@@ -14,7 +14,7 @@ namespace QuidProQuo.BE.Models
         /// <summary>
         /// Идентификатор объявления
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Дата регистрации объявления
@@ -24,6 +24,6 @@ namespace QuidProQuo.BE.Models
         /// <summary>
         /// Прикрепленный к объявлению объект
         /// </summary>
-        public virtual ObjectBase objectBase { get; set; }
+        public virtual ObjectBase ObjectBase { get; set; }
     }
 }

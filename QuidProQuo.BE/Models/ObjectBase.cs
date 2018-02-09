@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +15,7 @@ namespace QuidProQuo.BE.Models
         /// <summary>                                                    
         /// Идентификатор 
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Название
@@ -26,13 +28,13 @@ namespace QuidProQuo.BE.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// Адрес
+        /// </summary>
+        public string Location { get; set; }
+
+        /// <summary>
         /// Категория
         /// </summary>
         public CategoryItem CategoryItem { get; set; }
-
-        /// <summary>
-        /// Адрес
-        /// </summary>
-        public string Address { get; set; }
     }
 }

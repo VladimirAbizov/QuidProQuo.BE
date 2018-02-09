@@ -38,6 +38,6 @@ namespace QuidProQuo.BE.Models
         /// <summary>
         /// Объект класса <seealso cref="Models.Profile"/>, к которому привязан аккаунт
         /// </summary>
-        public Profile Profile { get; set; }
+        public virtual Profile Profile { get; set; }
     }
 }

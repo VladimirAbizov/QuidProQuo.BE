@@ -9,7 +9,8 @@ namespace QuidProQuo.BE.Models
         public DbSet<ServiceOrder> ServiceOrders { get; set; }
         public DbSet<ThingOrder> ThingOrders { get; set; }
         public DbSet<CategoryItem> CategoryItems { get; set; }
-        public DbSet<OrderBase> OrderBase { get; set; }
+        public DbSet<OrderBase> OrderBases { get; set; }
+        public DbSet<ObjectBase> ObjectBases { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
 
@@ -17,9 +18,9 @@ namespace QuidProQuo.BE.Models
         {
             modelBuilder.Entity<CategoryItem>()
                 .HasMany(x => x.Subcategories);
-            modelBuilder.Entity<Account>()
-                .HasRequired(c => c.Profile)
-                .WithRequiredPrincipal(c => c.Account);
+
+            modelBuilder.Entity<Profile>()
+                .HasMany(x => x.Orders);
 
             base.OnModelCreating(modelBuilder);
         }

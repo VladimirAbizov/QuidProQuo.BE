@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -31,13 +33,8 @@ namespace QuidProQuo.BE.Models
         public string Email { get; set; }
 
         /// <summary>
-        /// Объект класса <seealso cref="Models.Account"/>, к которому привязан профиль
-        /// </summary>
-        public Account Account { get; set; }
-
-        /// <summary>
         /// Список объявлений, выставленных данным пользователем
         /// </summary>
-        public List<OrderBase> Orders { get; set; }
+        public virtual List<OrderBase> Orders { get; set; }
     }
 }

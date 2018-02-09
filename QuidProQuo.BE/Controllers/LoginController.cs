@@ -20,10 +20,10 @@ namespace QuidProQuo.BE.Controllers
             var acount = _dbContext.Accounts.Where(x => x.Login == login);
             if (!acount.Any() || acount.Count() != 1)
             {
-                throw new Exception("Не должно быть больше одного полбзователя!");
+                throw new Exception("Не должно быть больше одного пользователя!");
             }
 
-            /// TODO В целевом решении, в случае успешной проходждении проверки, должен сгенерироваться ключ
+            /// TODO В целевом решении, в случае успешного прохождения проверки, должен сгенерироваться ключ
             /// TODO в формате GUID со временем жизни и записаться в БД.
             var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {

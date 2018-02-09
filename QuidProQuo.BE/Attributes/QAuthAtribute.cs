@@ -6,7 +6,7 @@ namespace QuidProQuo.BE.Attributes
     /// <summary>
     /// Объект отвечающий за проверку авторизации пользователей в системе.
     /// </summary>
-    public sealed class QAuthAtribute :System.Web.Http.AuthorizeAttribute
+    public sealed class QAuthAtribute : System.Web.Http.AuthorizeAttribute
     {
         public const string ACCESS_TOKEN = "access_token";
         public const string ACCESS_TOKEN_VALUE = "{D603EAE7-6804-42F8-8332-5136C2EE20C9}";

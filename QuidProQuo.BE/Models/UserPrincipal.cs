@@ -15,7 +15,7 @@ namespace QuidProQuo.BE.Models
 
         public bool IsInRole(string role)
         {
-            /// TODO Необходимо обращаться за полуением роли.
+            /// TODO Необходимо обращаться за получением роли.
             return true;
         }
 
