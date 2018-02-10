@@ -51,17 +51,19 @@ namespace QuidProQuo.BE.Controllers
         /// Добавляет объявление в базу данных
         /// </summary>
         /// <param name="actionData"></param>
+        /// <param name="id"></param>
         // POST api/order
-        public HttpResponseMessage Post(ActionData actionData)
+        public HttpResponseMessage Post(ActionData actionData, int id)
         {
             if (actionData == null)
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
 
             var category = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
+            var account = _dbContext.Accounts.Find(id);
             if(category == null)
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             if (category.CategoryType == CategoryType.Thing)
-                _dbContext.ThingOrders.Add(new ThingOrder
+                account.Profile.Orders.Add(new ThingOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
                     ObjectBase = new Thing
@@ -73,7 +75,7 @@ namespace QuidProQuo.BE.Controllers
                     }
                 });
             if (category.CategoryType == CategoryType.Service)
-                _dbContext.ServiceOrders.Add(new ServiceOrder
+                account.Profile.Orders.Add(new ServiceOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
                     ObjectBase = new Service
