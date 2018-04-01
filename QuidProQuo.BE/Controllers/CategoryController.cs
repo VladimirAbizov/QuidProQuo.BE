@@ -33,13 +33,13 @@ namespace QuidProQuo.BE.Controllers
         {
             if (categoryType == "service")
             {
-                var res = _dbContext.CategoryItems.ToList().Where(x => x.CategoryType == CategoryType.Service && x.IsCategory);
+                var res = _dbContext.CategoryItems.ToList().Where(x => x.categoryType == CategoryType.Service && x.IsCategory);
                 return res;
             }
                 
                 else if (categoryType == "thing")
             {
-                var res = _dbContext.CategoryItems.ToList().Where(x => x.CategoryType == CategoryType.Thing && x.IsCategory);
+                var res = _dbContext.CategoryItems.ToList().Where(x => x.categoryType == CategoryType.Thing && x.IsCategory);
                 return res;
             }
                     else return null;

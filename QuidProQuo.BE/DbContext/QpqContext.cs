@@ -2,7 +2,7 @@
 
 namespace QuidProQuo.BE.Models
 {
-    public class QpqContext : DbContext
+    public class QpqContext : DbContext, IQpqContext
     {
         public DbSet<Service> Services { get; set; }
         public DbSet<Thing> Things { get; set; }
@@ -13,6 +13,11 @@ namespace QuidProQuo.BE.Models
         public DbSet<ObjectBase> ObjectBases { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+
+        public void MarkAsModified(OrderBase item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

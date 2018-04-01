@@ -21,6 +21,17 @@ namespace QuidProQuo.BE.Controllers
     {
         private readonly QpqContext _dbContext = new QpqContext();
 
+        // modify the type of the db field
+        private IQpqContext db = new QpqContext();
+
+        // add these contructors
+        public OrderController() { }
+
+        public OrderController(IQpqContext context)
+        {
+            db = context;
+        }
+
         /// <summary>
         /// Возвращает список всех объявлений
         /// </summary>
@@ -59,11 +70,16 @@ namespace QuidProQuo.BE.Controllers
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
 
             var category = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
-            var account = _dbContext.Accounts.Find(id);
+            //var account = _dbContext.Accounts.Find(id);
+            var profile = _dbContext.Profiles.Find(id);
+
             if(category == null)
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
-            if (category.CategoryType == CategoryType.Thing)
-                account.Profile.Orders.Add(new ThingOrder
+            if (profile == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+            if (category.categoryType == CategoryType.Thing)
+                profile.Orders.Add(new ThingOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
                     ObjectBase = new Thing
@@ -74,8 +90,8 @@ namespace QuidProQuo.BE.Controllers
                         Location = actionData.orderFields[4].ToString()
                     }
                 });
-            if (category.CategoryType == CategoryType.Service)
-                account.Profile.Orders.Add(new ServiceOrder
+            if (category.categoryType == CategoryType.Service)
+                profile.Orders.Add(new ServiceOrder
                 {
                     DateTime = actionData.orderFields[0].ToString(),
                     ObjectBase = new Service
@@ -98,16 +114,16 @@ namespace QuidProQuo.BE.Controllers
         /// <param name="id"></param>
         /// <param name="order"></param>
         // PUT api/order/5
-        public HttpResponseMessage Put(int id, [FromBody]OrderBase order)
+        public void Put(int id, ActionData actionData)
         {
-            if (id == order.Id)
-            {
-                _dbContext.Entry(order).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+            OrderBase order = _dbContext.OrderBases.Find(id);
 
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
-            }
-                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            order.ObjectBase.Title = actionData.orderFields[1].ToString();
+            order.ObjectBase.Description = actionData.orderFields[2].ToString();
+            order.ObjectBase.CategoryItem = _dbContext.CategoryItems.Find(actionData.orderFields[3]);
+            order.ObjectBase.Location = actionData.orderFields[4].ToString();
+
+            _dbContext.SaveChanges();
         }
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace QuidProQuo.BE.Models
         /// <summary>
         /// Объект <seealso cref="Models.CategoryType"/>, помечающий категорию как категорию вещей или услуг
         /// </summary>
-        public CategoryType CategoryType { get; set; }
+        public CategoryType categoryType { get; set; }
 
         /// <summary>
         /// Флаг, разъединяющий категории и подкатегории. Если флаг равен true, значит это категория, если false - значит подкатегория.

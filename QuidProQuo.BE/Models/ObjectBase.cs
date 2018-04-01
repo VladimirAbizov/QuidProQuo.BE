@@ -35,6 +35,6 @@ namespace QuidProQuo.BE.Models
         /// <summary>
         /// Категория
         /// </summary>
-        public CategoryItem CategoryItem { get; set; }
+        public virtual CategoryItem CategoryItem { get; set; }
     }
 }
