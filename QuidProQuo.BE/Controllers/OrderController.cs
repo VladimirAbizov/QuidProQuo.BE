@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using QuidProQuo.BE.Attributes;
 using QuidProQuo.BE.Models;
@@ -52,10 +53,32 @@ namespace QuidProQuo.BE.Controllers
         // GET api/order/anything
         public string Get(string item)
         {
-            var orders = (from order in _dbContext.OrderBases
-                          where order.ObjectBase.Title.Contains(item)
-                          select order).ToList();
-            return JsonConvert.SerializeObject(orders);
+            List<OrderBase> orders = new List<OrderBase>();
+
+            string[] words = item.Split(new char[] { ' ', '/', '"' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // сначала ищем полные совпадения...
+            orders = (from order in _dbContext.OrderBases
+                      where order.ObjectBase.Title.Contains(item)
+                      select order).ToList();
+
+            if (words.Length == 1)
+                return JsonConvert.SerializeObject(orders);
+
+            // ...затем по отдельным словам
+            for (int i = 0; i < words.Length; i++)
+            {
+                string str = words[i];
+                var temp = (from order in _dbContext.OrderBases
+                            where order.ObjectBase.Title.Contains(str)
+                            select order).ToList();
+
+                temp.CopyItemsTo(orders); 
+            }
+
+            IEnumerable<OrderBase> retOrders = orders.Distinct();
+
+            return JsonConvert.SerializeObject(retOrders);
         }
 
         /// <summary>

@@ -38,8 +38,35 @@ namespace QuidProQuo.BE.Models
                             DateTime = "01.01.1111",
                             ObjectBase = new Thing
                             {
-                                Title = "any thing",
-                                Description = "anything thing"
+                                Title = "thing 1",
+                                Description = "thing 1"
+                            }
+                        },
+                        new ThingOrder
+                        {
+                            DateTime = "01.01.1111",
+                            ObjectBase = new Thing
+                            {
+                                Title = "anything 1",
+                                Description = "anything 1"
+                            }
+                        },
+                        new ThingOrder
+                        {
+                            DateTime = "01.01.1111",
+                            ObjectBase = new Thing
+                            {
+                                Title = "thing 2",
+                                Description = "thing 2"
+                            }
+                        },
+                        new ThingOrder
+                        {
+                            DateTime = "01.01.1111",
+                            ObjectBase = new Thing
+                            {
+                                Title = "anything 2",
+                                Description = "anything 2"
                             }
                         }
                     }
